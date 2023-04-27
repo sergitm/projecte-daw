@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+  faGoogle = faGoogle;
 }
