@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({

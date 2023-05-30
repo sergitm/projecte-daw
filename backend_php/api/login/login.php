@@ -12,16 +12,16 @@ session_start();
 $post = json_decode(file_get_contents('php://input'));
 
 if (!empty($post) && !empty($post->accio) && $post->accio == 'logged') {
-    // if (isset($_SESSION['usuari'])) {
-    //     $response = array(
-    //         "logged" => true,
-    //         "user" => $_SESSION['usuari']
-    //     );
-    // } else {
-    //     $response = array(
-    //         "logged" => false
-    //     );
-    // }
+    if (isset($_SESSION['usuari'])) {
+        $response = array(
+            "logged" => true,
+            "user" => $_SESSION['usuari']
+        );
+    } else {
+        $response = array(
+            "logged" => false
+        );
+    }
     
 }
 

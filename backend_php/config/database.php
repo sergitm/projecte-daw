@@ -2,7 +2,7 @@
     class Database {
         // DB Params
         private $host = 'localhost';
-        private $db_name = 'projectedaw';
+        private $db_name = 'projecte_daw';
         private $username = 'root';
         private $pwd = '';
         private $conn;
