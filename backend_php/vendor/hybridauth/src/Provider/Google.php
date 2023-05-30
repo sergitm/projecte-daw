@@ -12,38 +12,38 @@ use Hybridauth\Exception\UnexpectedApiResponseException;
 use Hybridauth\Data;
 use Hybridauth\User;
 
-/**
- * Google OAuth2 provider adapter.
- *
- * Example:
- *
- *   $config = [
- *       'callback' => Hybridauth\HttpClient\Util::getCurrentUrl(),
- *       'keys' => ['id' => '', 'secret' => ''],
- *       'scope' => 'https://www.googleapis.com/auth/userinfo.profile',
- *
- *        // google's custom auth url params
- *       'authorize_url_parameters' => [
- *              'approval_prompt' => 'force', // to pass only when you need to acquire a new refresh token.
- *              'access_type' => ..,      // is set to 'offline' by default
- *              'hd' => ..,
- *              'state' => ..,
- *              // etc.
- *       ]
- *   ];
- *
- *   $adapter = new Hybridauth\Provider\Google($config);
- *
- *   try {
- *       $adapter->authenticate();
- *
- *       $userProfile = $adapter->getUserProfile();
- *       $tokens = $adapter->getAccessToken();
- *       $contacts = $adapter->getUserContacts(['max-results' => 75]);
- *   } catch (\Exception $e) {
- *       echo $e->getMessage() ;
- *   }
- */
+// /**
+//  * Google OAuth2 provider adapter.
+//  *
+//  * Example:
+//  *
+//  *   $config = [
+//  *       'callback' => Hybridauth\HttpClient\Util::getCurrentUrl(),
+//  *       'keys' => ['id' => '', 'secret' => ''],
+//  *       'scope' => 'https://www.googleapis.com/auth/userinfo.profile',
+//  *
+//  *        // google's custom auth url params
+//  *       'authorize_url_parameters' => [
+//  *              'approval_prompt' => 'force', // to pass only when you need to acquire a new refresh token.
+//  *              'access_type' => ..,      // is set to 'offline' by default
+//  *              'hd' => ..,
+//  *              'state' => ..,
+//  *              // etc.
+//  *       ]
+//  *   ];
+//  *
+//  *   $adapter = new Hybridauth\Provider\Google($config);
+//  *
+//  *   try {
+//  *       $adapter->authenticate();
+//  *
+//  *       $userProfile = $adapter->getUserProfile();
+//  *       $tokens = $adapter->getAccessToken();
+//  *       $contacts = $adapter->getUserContacts(['max-results' => 75]);
+//  *   } catch (\Exception $e) {
+//  *       echo $e->getMessage() ;
+//  *   }
+//  */
 class Google extends OAuth2
 {
     /**
