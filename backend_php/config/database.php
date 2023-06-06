@@ -28,7 +28,7 @@
 
         // Constructor 
         public static function connect() {
-            //Connect only if not connected
+            // Connect only if not connected
             if(!isset(self::$conn)){
                 $db = new Database();
                 self::$conn = $db->connect();
@@ -36,10 +36,10 @@
         }
 
         public static function execute($query, $params = array()){
-            //Prepare
+            // Prepare
             $stmt = self::$conn->prepare($query);
 
-            //Execute query
+            // Execute query
             if($stmt->execute($params)){
 
                 return $stmt;

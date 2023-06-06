@@ -15,9 +15,15 @@ export class LoginService {
   private baseUrl;
   private apiUrl;
 
-  isLogged(){
+  isLogged(session_id: string){
     const url = `${this.baseUrl}${this.apiUrl.login}`;
     
-    return this.http.post(url, {accio:"logged"});  
+    return this.http.post(url, {accio:"logged", session_id:session_id});  
+  }
+
+  logout(session_id: string){
+    const url = `${this.baseUrl}${this.apiUrl.logout}`;
+    
+    return this.http.post(url, {accio:"logout", session_id:session_id}); 
   }
 }

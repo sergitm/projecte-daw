@@ -3,6 +3,8 @@ export const environment = {
     baseUrl: "http://localhost/projecte-daw/backend_php/api/",
     apiUrl: {
         login: "login/login.php",
-        dispositius: "dispositius"
+        logout: "login/logout.php",
+        dispositius: "dispositius",
+        import: 'importacio/import.php',
     }
 };

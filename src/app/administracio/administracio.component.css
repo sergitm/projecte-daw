@@ -1,0 +1,12 @@
+.container .nav .nav-item .nav-link {
+    background-color: white;
+    color: black;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.container .nav .nav-item .active {
+    background-color: #f8f9fa;
+    color: black;
+    font-weight: bold;
+}

@@ -2,7 +2,10 @@
 
 // hybridAuth Autentication
 // --------------------------------------------------   
-require '../../vendor/hybridauth/src/autoload.php';
+require_once '../../vendor/hybridauth/src/autoload.php';
+require_once '../../config/database.php';
+require_once '../../model/Session.php';
+
 session_start();
 session_regenerate_id(true);
 
@@ -22,7 +25,6 @@ try{
 
     $accessToken = $google->getAccessToken();
     $userProfile = $google->getUserProfile();
-
     $username = explode("@", $userProfile->email);
     $username = $username[0];
     $user = array(
@@ -32,8 +34,6 @@ try{
         'username' => $username,
         'token' => $accessToken
     );
-
-    var_dump($user);
     
     // Si l'usuari que s'intenta logar es troba al fitxer, creem la sessió i loguem
     $fitxer_auth = json_decode(file_get_contents("../../config/auth.json"), true);
@@ -41,27 +41,43 @@ try{
     foreach ($fitxer_auth['admins'] as $compta) {
         if ($compta === $user['email']) {
             $_SESSION['usuari'] = $user;
-            
-            $sessio = new \Hybridauth\Storage\Session();
-        
-            $sessio->set("usuari", $user);
-            $logat = true;
+
+            $sessionOG = Session::Get(['email' => $user['email']]);
+            if ($sessionOG != null) {
+                $sessionOG->destroy();
+            }
+
+            try {
+                $session = new Session(session_id(), $user['email'], $user['firstName'], $user['lastName'], $user['username'], 1, $user['token']);
+                $session->save();
+                $logat = true;
+            } catch (\Throwable $th) {
+                $logat = false;
+            }
         }
     }
     foreach ($fitxer_auth['users'] as $compta) {
         if ($compta === $user['email']) {
             $_SESSION['usuari'] = $user;
             
-            $sessio = new \Hybridauth\Storage\Session();
-        
-            $sessio->set("usuari", $user);
-            $logat = true;
+            $sessionOG = Session::Get(['email' => $user['email']]);
+            if ($sessionOG != null) {
+                $sessionOG->destroy();
+            }
+
+            try {
+                $session = new Session(session_id(), $user['email'], $user['firstName'], $user['lastName'], $user['username'], 0, $user['token']);
+                $session->save();
+                $logat = true;
+            } catch (\Throwable $th) {
+                $logat = false;
+            }
         }
     }
 
     // i redirigirem a la pagina principal
     if ($logat) {
-        // header("Location: http://localhost:4200");
+        header("Location: http://localhost:4200/session?session_id=" . urlencode($session->getSessionId()));
     }
 
 }catch(Exception $e){

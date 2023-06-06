@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="importacio-tab" data-bs-toggle="tab" data-bs-target="#importacio" type="button"
+                role="tab" aria-controls="importacio" aria-selected="true">Importar un fitxer TSV
+                amb dades dels alumnes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="usuaris-tab" data-bs-toggle="tab" data-bs-target="#usuaris" type="button"
+                role="tab" aria-controls="usuaris" aria-selected="false">Pàgina per veure els usuaris de la
+                Web</button>
+        </li>
+    </ul>
+    <div class="tab-content bg-light rounded-bottom shadow" id="myTabContent">
+        <div class="tab-pane fade show active" id="importacio" role="tabpanel" aria-labelledby="importacio-tab">
+            <app-importacio></app-importacio>
+        </div>
+        <div class="tab-pane fade" id="usuaris" role="tabpanel" aria-labelledby="usuaris-tab">
+            <app-usuaris></app-usuaris>
+        </div>
+    </div>
+</div>

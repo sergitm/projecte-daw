@@ -7,20 +7,38 @@ import { LoginComponent } from './login/login.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IniciComponent } from './inici/inici.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SessionComponent } from './session/session.component';
+import { ImportacioComponent } from './administracio/importacio/importacio.component';
+import { UsuarisComponent } from './administracio/usuaris/usuaris.component';
+import { AdministracioComponent } from './administracio/administracio.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataService } from 'src/services/data-service.service';
+import { LoginService } from 'src/services/login.service';
+import { DraganddropDirective } from './directives/draganddrop.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    IniciComponent
+    IniciComponent,
+    SessionComponent,
+    ImportacioComponent,
+    UsuarisComponent,
+    AdministracioComponent,
+    DraganddropDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    DataService,
+    LoginService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
