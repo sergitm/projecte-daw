@@ -1,10 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ResponseMessage } from 'src/app/interfaces/response-message';
+import { DataService } from 'src/services/data-service.service';
 
 @Component({
   selector: 'app-usuaris',
   templateUrl: './usuaris.component.html',
   styleUrls: ['./usuaris.component.css']
 })
-export class UsuarisComponent {
+export class UsuarisComponent implements OnInit{
 
+  protected users : string[] = [];
+  protected admins : string[] = [];
+  protected newUser! : string;
+  protected newAdmin! : string;
+  protected adminError!: string;
+  protected userError!: string;
+
+  constructor(private dataService: DataService){
+
+  }
+
+  ngOnInit(): void {
+    this.dataService.getUsers().subscribe(response => {
+      let resposta = response as ResponseMessage;
+      if (resposta.success) {
+        this.users = resposta.data.users;
+        this.admins = resposta.data.admins;        
+      }
+    });
+  }
+
+  public enviarAdmin(){
+    if (this.newAdmin.match("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")) {
+      if (this.newAdmin.split('@')[1] === 'sapalomera.cat') {
+        this.dataService.addAdmin(this.newAdmin).subscribe(response => {
+          this.ngOnInit();
+        });
+      } else {
+        this.adminError = "No és un correu del Sa Palomera.";
+      }
+    } else {
+      this.adminError = "No és un correu electrònic.";
+    }
+  }
+
+  public enviarUser(){
+    if (this.newUser.match("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")) {
+      if (this.newUser.split('@')[1] === 'sapalomera.cat') {
+        this.dataService.addUser(this.newUser).subscribe(response => {
+          this.ngOnInit();
+        });
+      } else {
+        this.userError = "No és un correu del Sa Palomera.";
+      }
+    } else {
+      this.userError = "No és un correu electrònic.";
+    }
+  }
 }

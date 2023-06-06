@@ -45,11 +45,13 @@ if (!empty($post) && !empty($post->accio) && $post->accio == 'import') {
 if ($success) {
     $response = array(
         'success' => true,
+        "data" => null,
         'message' => "Importació realitzada correctament."
     );
 } else {
     $response = array(
         'success' => false,
+        "data" => null,
         'message' => $message ?? "Petició incorrecta."
     );
 }

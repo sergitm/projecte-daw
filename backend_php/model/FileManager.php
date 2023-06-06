@@ -25,6 +25,18 @@ class FileManager {
         file_put_contents('../../config/alumnes/dades_alumnes.json', $dadesJson);
     }
 
+    public static function addAdmin($newAdmin){
+        $authJson = json_decode(file_get_contents("../../config/auth.json"), true);
+        array_push($authJson['admins'], $newAdmin);
+        file_put_contents("../../config/auth.json", json_encode($authJson));
+    }
+
+    public static function addUser($newUser){
+        $authJson = json_decode(file_get_contents("../../config/auth.json"), true);
+        array_push($authJson['users'], $newUser);
+        file_put_contents("../../config/auth.json", json_encode($authJson));
+    }
+
 }
 
 ?>

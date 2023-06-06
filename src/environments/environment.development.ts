@@ -6,5 +6,7 @@ export const environment = {
         logout: "login/logout.php",
         dispositius: "dispositius",
         import: 'importacio/import.php',
+        users: 'users/users.php',
+        addUsers: "users/addUsers.php"
     }
 };

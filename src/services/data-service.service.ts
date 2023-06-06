@@ -23,4 +23,42 @@ export class DataService {
       observe: 'events'
     });
   }
+
+  getUsers(){
+    const url = `${this.baseUrl}${this.apiUrl.users}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'users',
+      session_id: session.session_id,
+    });
+  }
+  
+  addAdmin(newAdmin: string){
+    const url = `${this.baseUrl}${this.apiUrl.addUsers}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'addAdmin',
+      session_id: session.session_id,
+      newAdmin: newAdmin
+    });
+  }
+
+  addUser(newUser: string){
+    const url = `${this.baseUrl}${this.apiUrl.addUsers}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'addUser',
+      session_id: session.session_id,
+      newUser: newUser
+    });
+  }
 }

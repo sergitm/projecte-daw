@@ -1,3 +1,70 @@
-<div>
-    <p>usuaris works!</p>
+<div class="container">
+    <div class="container pb-4">
+        <h1 class="text-center">Usuaris que es poden loguejar</h1>
+        <p class="text-center fw-bold">Utilitza els camps de text per afegir un correu de Google del Sa Palomera a les seccions Administrador o Usuari.</p>
+        <hr class="my-4 m-auto border-3 w-75 border-top border-dark">
+        <h2 class="text-center">Administradors</h2>
+        <div class="my-3">
+            <div class="d-flex justify-content-center">
+                <form class="row" (submit)="enviarAdmin()">
+                    <div class="col-auto">
+                        <input type="text" name="newAdmin" id="newAdmin" class="form-control" [(ngModel)]="newAdmin">
+                    </div>
+                    <div class="col-auto">
+                        <input type="submit" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+            <div class="text-center">
+                <span class="text-danger" *ngIf="adminError">{{adminError}}</span>
+            </div>
+        </div>
+            
+        <div class="container pt-2 w-50 bg-dark rounded rounded-2 border border-3 border-info" *ngIf="admins.length > 0">
+            <table class="table table-dark">
+                <thead>
+                    <th scope="col">#</th>
+                    <th scope="col">Correu dels administradors</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let admin of admins; index as i;">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{admin}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr class="my-4 m-auto border-3 w-75 border-top border-dark">
+        <h2 class="text-center">Usuaris</h2>
+        <div class="my-3">
+            <div class="d-flex justify-content-center">
+                <form class="row" (submit)="enviarUser()">
+                    <div class="col-auto">
+                        <input type="text" name="newAdmin" id="newAdmin" class="form-control" [(ngModel)]="newUser">
+                    </div>
+                    <div class="col-auto">
+                        <input type="submit" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+            <div class="text-center">
+                <span class="text-danger" *ngIf="userError">{{userError}}</span>
+            </div>
+        </div>
+
+        <div class="container pt-2 w-50 bg-dark rounded rounded-2 border border-3 border-info" *ngIf="users.length > 0">
+            <table class="table table-dark">
+                <thead>
+                    <th scope="col">#</th>
+                    <th scope="col">Correu dels usuaris</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users; index as i;">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{user}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

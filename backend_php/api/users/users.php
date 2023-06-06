@@ -10,39 +10,31 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, X-Requested-With');
 header('Content-Type: application/json');
 
-session_start();
-
 //Obtenir dades que arriven per post
 $post = json_decode(file_get_contents('php://input'));
 
-if (!empty($post) && !empty($post->accio) && $post->accio == 'logout') {
+if (!empty($post) && !empty($post->accio) && $post->accio == 'users') {
     $session = Session::Get(['session_id' => $post->session_id]);
-    $success = false;
     if ($session != null) {
         try {
-            $session->destroy();
-            session_regenerate_id();
-            session_unset();
-            session_destroy();
-            $success = true;
+            $fitxer_auth = json_decode(file_get_contents("../../config/auth.json"), true);
             $response = array(
                 "success" => true,
-                "data" => null,
-                "message" => 'Deslogat'
+                "data" => $fitxer_auth,
+                "message" => "Lectura realitzada correctament.",
             );
         } catch (\Throwable $th) {
-            $success = false;
             $response = array(
                 "success" => false,
                 "data" => null,
-                "message" => "Hi ha hagut un error amb la base de dades."
+                "message" => "Error al realitzar la lectura."
             );
         }
     } else {
         $response = array(
             "success" => false,
             "data" => null,
-            "message" => "No estàs logat."
+            "message" => "No estás loguejat."
         );
     }
 }
