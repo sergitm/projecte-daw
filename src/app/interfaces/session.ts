@@ -5,6 +5,7 @@ export interface Session {
     nom: string;
     cognoms: string;
     username: string;
+    admin: boolean;
     token: {
         access_token: string;
         token_type: string;
