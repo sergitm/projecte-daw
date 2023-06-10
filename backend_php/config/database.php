@@ -35,6 +35,33 @@
             }
         }
 
+        public static function prepare($query){
+            // Prepare
+            $stmt = self::$conn->prepare($query);
+            return $stmt;
+        }
+
+        public static function bind_int_params($stmt, $params = array()){
+            foreach ($params as $key => $value) {
+                $stmt->bindParam($key, $params[$key], PDO::PARAM_INT);
+            }
+        }
+
+        public static function bind_str_params($stmt, $params = array()){
+            foreach ($params as $key => $value) {
+                $stmt->bindParam($key, $value);
+            }
+        }
+
+        public static function rawExecute($stmt){
+            // Execute query
+            if($stmt->execute()){
+                return $stmt;
+            } else {
+                return false;
+            }
+        }
+
         public static function execute($query, $params = array()){
             // Prepare
             $stmt = self::$conn->prepare($query);
@@ -46,6 +73,22 @@
 
             } else {
 
+                return false;
+            }
+        }
+
+        public static function execute_int_params($query, $params){
+            // Prepare
+            $stmt = self::$conn->prepare($query);
+
+            foreach ($params as $key => $value) {
+                $stmt->bindParam($key, $params[$key], PDO::PARAM_INT);
+            }
+
+            // Execute query
+            if($stmt->execute()){
+                return $stmt;
+            } else {
                 return false;
             }
         }

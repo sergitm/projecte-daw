@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseMessage } from 'src/app/interfaces/response-message';
 import { DataService } from 'src/services/data-service.service';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-usuaris',
@@ -15,6 +16,8 @@ export class UsuarisComponent implements OnInit{
   protected newAdmin! : string;
   protected adminError!: string;
   protected userError!: string;
+  protected deleteError!: string;
+  faTrash = faTrash;
 
   constructor(private dataService: DataService){
 
@@ -34,6 +37,7 @@ export class UsuarisComponent implements OnInit{
     if (this.newAdmin.match("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")) {
       if (this.newAdmin.split('@')[1] === 'sapalomera.cat') {
         this.dataService.addAdmin(this.newAdmin).subscribe(response => {
+          this.newAdmin = '';
           this.ngOnInit();
         });
       } else {
@@ -48,6 +52,7 @@ export class UsuarisComponent implements OnInit{
     if (this.newUser.match("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")) {
       if (this.newUser.split('@')[1] === 'sapalomera.cat') {
         this.dataService.addUser(this.newUser).subscribe(response => {
+          this.newUser = '';
           this.ngOnInit();
         });
       } else {
@@ -56,5 +61,16 @@ export class UsuarisComponent implements OnInit{
     } else {
       this.userError = "No és un correu electrònic.";
     }
+  }
+
+  public eliminarUsuari(user: string){
+    this.dataService.deleteUser(user).subscribe(response => {
+      let resposta = response as ResponseMessage;
+      if (resposta.success) {
+        this.ngOnInit();      
+      } else {
+        this.deleteError = resposta.message;
+      }
+    });
   }
 }

@@ -37,6 +37,16 @@ class FileManager {
         file_put_contents("../../config/auth.json", json_encode($authJson));
     }
 
+    public static function deleteUser($user){
+        $authJson = json_decode(file_get_contents("../../config/auth.json"), true);
+        for ($i=0; $i < count($authJson['users']); $i++) { 
+            if ($authJson['users'][$i] === $user) {
+                array_splice($authJson['users'], $i, 1);
+            }
+        }
+        file_put_contents("../../config/auth.json", json_encode($authJson));
+    }
+
 }
 
 ?>

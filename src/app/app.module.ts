@@ -15,6 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from 'src/services/data-service.service';
 import { LoginService } from 'src/services/login.service';
 import { DraganddropDirective } from './directives/draganddrop.directive';
+import { DispositiusComponent } from './dispositius/dispositius.component';
+import { PersonesComponent } from './persones/persones.component';
+import { EspaisComponent } from './espais/espais.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { DraganddropDirective } from './directives/draganddrop.directive';
     ImportacioComponent,
     UsuarisComponent,
     AdministracioComponent,
-    DraganddropDirective
+    DraganddropDirective,
+    DispositiusComponent,
+    PersonesComponent,
+    EspaisComponent
   ],
   imports: [
     BrowserModule,

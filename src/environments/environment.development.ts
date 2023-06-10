@@ -7,6 +7,10 @@ export const environment = {
         dispositius: "dispositius",
         import: 'importacio/import.php',
         users: 'users/users.php',
-        addUsers: "users/addUsers.php"
+        addUsers: "users/addUsers.php",
+        deleteUsers: "users/deleteUsers.php",
+        readPersones: "persones/readPersones.php",
+        buscarPersones: "persones/search.php",
+        numPagines: "persones/numPagines.php"
     }
 };
