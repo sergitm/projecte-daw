@@ -132,6 +132,12 @@ class LlistaUsuaris {
 
         return $llistaUsuaris;
     }
+
+    public static function createPersona($persona){
+        $persona = new Usuari($persona->nom_cognoms, $persona->usuari, $persona->etapa, $persona->curs, $persona->grup);
+
+        return $persona->save();
+    }
 }
 
 ?>

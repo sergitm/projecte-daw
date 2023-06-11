@@ -1,0 +1,65 @@
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-center" id="exampleModalLabel">Formulari de nova persona</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <h5 class="text-center fw-bold">Afegir una nova persona</h5>
+                <div class="m-5 p-5 shadow rounded rounded-2 border border-2">
+                    <form name="formulario-busqueda" [formGroup]="form" (submit)="afegirPersona()">
+                        <div class="mx-4 row">
+                            <label for="nom_cognoms" class="fw-bold col-3">Nom i Cognoms:</label>
+                            <div class="col-9">
+                                <input type="text" class="form-control" [class.is-invalid]="nom_cognoms?.hasError('required') && nom_cognoms?.touched" id="nom_cognoms" name="nom_cognoms" formControlName="nom_cognoms">
+                                <span class="text-danger" *ngIf="nom_cognoms?.hasError('required') && nom_cognoms?.touched">El camp és obligatori.</span>
+                            </div>
+                        </div>
+                        <div class="my-3 mx-4 row">
+                            <label for="usuari" class="fw-bold col-3">Nom d'usuari:</label>
+                            <div class="col-9">
+                                <input type="text" class="form-control" [class.is-invalid]="usuari?.hasError('required') && usuari?.touched" id="usuari" name="usuari" formControlName="usuari">
+                                <span class="text-danger" *ngIf="usuari?.hasError('required') && usuari?.touched">El camp és obligatori.</span>
+                            </div>
+                        </div>
+                        <div class="my-3 mx-4 row">
+                            <label for="etapa" class="fw-bold col-3">Classe:</label>
+                            <div class="col-3">
+                                <select class="form-select" [class.is-invalid]="etapa?.hasError('required') && etapa?.touched" aria-label="Selecció etapa" id="etapa" name="etapa" formControlName="etapa" (change)="setCursos($event)">
+                                    <option value="">Selecciona una etapa</option>
+                                    <option *ngFor="let etapa of etapes" [value]="etapa">{{etapa}}</option>
+                                </select>
+                                <span class="text-danger" *ngIf="etapa?.hasError('required') && etapa?.touched">El camp és obligatori.</span>
+                            </div>
+                            <div class="col-3">
+                                <select class="form-select" [class.is-invalid]="curs?.hasError('required') && curs?.touched" aria-label="Selecció curs" id="curs" name="curs" formControlName="curs" (change)="setGrups($event)">
+                                    <option value="">Selecciona un curs</option>
+                                    <option *ngFor="let curs of cursos" [value]="curs">{{curs}}</option>
+                                </select>
+                                <span class="text-danger" *ngIf="curs?.hasError('required') && curs?.touched">El camp és obligatori.</span>
+                            </div>
+                            <div class="col-3">
+                                <select class="form-select" [attr.disabled]="disabled ? '' : null" [class.is-invalid]="grup?.hasError('required') && grup?.touched" aria-label="Selecció grup" id="grup" name="grup" formControlName="grup">
+                                    <option value="">Selecciona un grup</option>
+                                    <option *ngFor="let grup of grups" [value]="grup">{{grup}}</option>
+                                </select>
+                                <span class="text-danger" *ngIf="grup?.hasError('required') && grup?.touched">El camp és obligatori.</span>
+                            </div>
+                        </div>
+                        <div class="mt-3 pb-3 mx-4">
+                            <input type="submit" class="btn btn-dark float-end" value="Enviar">
+                        </div>
+                    </form>
+                </div>
+                <div class="container text-center" *ngIf="errorMessage || successMessage">
+                    <span *ngIf="errorMessage" class="text-danger fw-bold">{{errorMessage}}</span>
+                    <span *ngIf="successMessage" class="text-success fw-bold">{{successMessage}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tancar</button>
+        </div>
+    </div>
+</div>

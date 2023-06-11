@@ -18,6 +18,7 @@ import { DraganddropDirective } from './directives/draganddrop.directive';
 import { DispositiusComponent } from './dispositius/dispositius.component';
 import { PersonesComponent } from './persones/persones.component';
 import { EspaisComponent } from './espais/espais.component';
+import { NovaPersonaComponent } from './persones/nova-persona/nova-persona.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { EspaisComponent } from './espais/espais.component';
     DraganddropDirective,
     DispositiusComponent,
     PersonesComponent,
-    EspaisComponent
+    EspaisComponent,
+    NovaPersonaComponent
   ],
   imports: [
     BrowserModule,

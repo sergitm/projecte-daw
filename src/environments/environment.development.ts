@@ -11,6 +11,8 @@ export const environment = {
         deleteUsers: "users/deleteUsers.php",
         readPersones: "persones/readPersones.php",
         buscarPersones: "persones/search.php",
-        numPagines: "persones/numPagines.php"
+        numPagines: "persones/numPagines.php",
+        crearPersona: "persones/createPersona.php",
+        classes: "persones/classes.php"
     }
 };

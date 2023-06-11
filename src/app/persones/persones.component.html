@@ -2,7 +2,7 @@
     <div class="bg-light rounded rounded-2 shadow pb-4">
         <h1 class="text-center">Persones</h1>
         <div class="container m-3">
-            <button class="btn btn-dark"><fa-icon [icon]="faPlus"></fa-icon> Afegir una nova persona</button>
+            <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#novaPersonaModal"><fa-icon [icon]="faPlus"></fa-icon> Afegir una nova persona</button>
         </div>
         <div class="shadow border rounded rounded-4 mx-4">
             <div class="m-3 d-flex justify-content-between">
@@ -70,5 +70,11 @@
                 </ul>
             </nav>
         </div>
+        
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="novaPersonaModal" tabindex="-1" aria-labelledby="novaPersonaModalLabel" aria-hidden="true">
+    <app-nova-persona></app-nova-persona>
 </div>

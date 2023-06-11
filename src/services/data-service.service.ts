@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Persona } from 'src/app/model/persona.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -116,6 +117,31 @@ export class DataService {
       session_id: session.session_id,
       numPerPagina : numPerPagina,
       criteri : criteri
+    });
+  }
+
+  getClasses(){
+    const url = `${this.baseUrl}${this.apiUrl.classes}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'getClasses',
+      session_id: session.session_id
+    });
+  }
+
+  createPersona(persona: Persona){
+    const url = `${this.baseUrl}${this.apiUrl.crearPersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'createPersona',
+      session_id: session.session_id,
+      persona: persona
     });
   }
 }

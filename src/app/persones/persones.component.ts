@@ -145,9 +145,7 @@ export class PersonesComponent implements OnInit{
         this.numPagina + 2
       ];
     }
-    this.loadTaula();
-    console.log(this.navPagines);
-    
+    this.loadTaula();    
   }
 
   public primeraPagina(){
@@ -160,13 +158,15 @@ export class PersonesComponent implements OnInit{
 
   public ultimaPagina(){
     this.numPagina = this.maxPagines;
-    this.navPagines = [
-      this.maxPagines - 4,
-      this.maxPagines - 3,
-      this.maxPagines - 2,
-      this.maxPagines - 1,
-      this.maxPagines,
-    ];
+    if (this.navPagines.length > 5) {
+      this.navPagines = [
+        this.maxPagines - 4,
+        this.maxPagines - 3,
+        this.maxPagines - 2,
+        this.maxPagines - 1,
+        this.maxPagines,
+      ];
+    }
     this.loadTaula();
   }
 
