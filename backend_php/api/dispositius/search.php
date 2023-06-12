@@ -3,8 +3,8 @@
 // imports
 require_once "../../config/database.php";
 require_once "../../model/Session.php";
-require_once "../../model/LlistaEspais.php";
-require_once "../../model/Espai.php";
+require_once "../../model/LlistaDispositius.php";
+require_once "../../model/Dispositiu.php";
 
 // headers
 header('Access-Control-Allow-Origin: http://localhost:4200');
@@ -17,21 +17,21 @@ header('Accept: application/json');
 //Obtenir dades que arriven per post
 $post = json_decode(file_get_contents('php://input'));
 
-if (!empty($post) && !empty($post->accio) && $post->accio == 'buscarEspais') {
+if (!empty($post) && !empty($post->accio) && $post->accio == 'buscarDispositius') {
     $session = Session::Get(['session_id' => $post->session_id]);
     if ($session != null) {
         try {
-            $llistaEspais = LlistaEspais::buscarEspais($post->espais, $post->pagina, $post->qtEspais);
+            $llistaDispositius = LlistaDispositius::buscarDispositius($post->dispositiu, $post->pagina, $post->qtDispositius);
             $response = array(
                 "success" => true,
-                "data" => $llistaEspais,
+                "data" => $llistaDispositius,
                 "message" => "Resultat retornat satisfactòriament.",
             );
         } catch (\Throwable $th) {
             $response = array(
                 "success" => false,
                 "data" => null,
-                "message" => "Error al retornar els espais."
+                "message" => "Error al retornar els dispositius."
             );
         }
     } else {

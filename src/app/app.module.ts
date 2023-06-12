@@ -20,6 +20,7 @@ import { PersonesComponent } from './persones/persones.component';
 import { EspaisComponent } from './espais/espais.component';
 import { NovaPersonaComponent } from './persones/nova-persona/nova-persona.component';
 import { NouEspaiComponent } from './espais/nou-espai/nou-espai.component';
+import { NouDispositiuComponent } from './dispositius/nou-dispositiu/nou-dispositiu.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NouEspaiComponent } from './espais/nou-espai/nou-espai.component';
     PersonesComponent,
     EspaisComponent,
     NovaPersonaComponent,
-    NouEspaiComponent
+    NouEspaiComponent,
+    NouDispositiuComponent
   ],
   imports: [
     BrowserModule,

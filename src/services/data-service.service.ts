@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Dispositiu } from 'src/app/model/dispositiu.model';
 import { Espai } from 'src/app/model/espai.model';
 import { Persona } from 'src/app/model/persona.model';
 import { environment } from 'src/environments/environment.development';
@@ -200,6 +201,87 @@ export class DataService {
       session_id: session.session_id,
       numPerPagina : numPerPagina,
       criteri : criteri
+    });
+  }
+
+  createDispositiu(dispositiu: Dispositiu){
+    const url = `${this.baseUrl}${this.apiUrl.crearDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'createDispositiu',
+      session_id: session.session_id,
+      dispositiu: dispositiu
+    });
+  }
+
+  readDispositius(pagina: number, numPerPagina: number){
+    const url = `${this.baseUrl}${this.apiUrl.readDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readDispositius',
+      session_id: session.session_id,
+      dispositius: numPerPagina,
+      pagina: pagina
+    });
+  }
+
+  buscarDispositius(data:string, pagina: number, numPerPagina: number){
+    const url = `${this.baseUrl}${this.apiUrl.buscarDispositius}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'buscarDispositius',
+      session_id: session.session_id,
+      dispositiu: data,
+      pagina: pagina,
+      qtDispositius: numPerPagina
+    });
+  }
+
+  numeroPaginesDispositiu(numPerPagina : number, criteri : string){
+    
+    const url = `${this.baseUrl}${this.apiUrl.numPaginesDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'numPagines',
+      session_id: session.session_id,
+      numPerPagina : numPerPagina,
+      criteri : criteri
+    });
+  }
+
+  infoTipusDispositiu(){
+    const url = `${this.baseUrl}${this.apiUrl.infoSelects}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'infoTipus',
+      session_id: session.session_id
+    });
+  }
+
+  infoEstatDispositiu(){
+    const url = `${this.baseUrl}${this.apiUrl.infoSelects}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'infoEstats',
+      session_id: session.session_id
     });
   }
 }

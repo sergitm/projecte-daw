@@ -4,7 +4,6 @@ export const environment = {
     apiUrl: {
         login: "login/login.php",
         logout: "login/logout.php",
-        dispositius: "dispositius",
         import: 'importacio/import.php',
         users: 'users/users.php',
         addUsers: "users/addUsers.php",
@@ -18,5 +17,10 @@ export const environment = {
         readEspais: "espais/readEspais.php",
         buscarEspais: "espais/search.php",
         numPaginesEspai: "espais/numPagines.php",
+        crearDispositiu: "dispositius/createDispositiu.php",
+        readDispositiu: "dispositius/readDispositius.php",
+        buscarDispositius: "dispositius/search.php",
+        numPaginesDispositiu: "dispositius/numPagines.php",
+        infoSelects: "dispositius/infoSelects.php",
     }
 };

@@ -3,8 +3,8 @@
 // imports
 require_once "../../config/database.php";
 require_once "../../model/Session.php";
-require_once "../../model/LlistaEspais.php";
-require_once "../../model/Espai.php";
+require_once "../../model/LlistaDispositius.php";
+require_once "../../model/Dispositiu.php";
 
 // headers
 header('Access-Control-Allow-Origin: http://localhost:4200');
@@ -16,39 +16,30 @@ header('Accept: application/json');
 
 //Obtenir dades que arriven per post
 $post = json_decode(file_get_contents('php://input'));
-if (!empty($post) && !empty($post->accio) && $post->accio == 'readEspais') {
+if (!empty($post) && !empty($post->accio) && $post->accio == 'createDispositiu') {
     $session = Session::Get(['session_id' => $post->session_id]);
     if ($session != null) {
-        if ($post->espais === 'all') {
-            try {
-                $llistaEspais = LlistaEspais::getAll();
+        try {
+            $resultat = LlistaDispositius::createDispositiu($post->dispositiu);
+            if ($resultat) {
                 $response = array(
                     "success" => true,
-                    "data" => $llistaEspais,
-                    "message" => "Totes els espais retornats.",
+                    "data" => null,
+                    "message" => "Dispositiu creat correctament.",
                 );
-            } catch (\Throwable $th) {
+            } else {
                 $response = array(
                     "success" => false,
                     "data" => null,
-                    "message" => "Error al retornar els espais."
+                    "message" => "Hi ha hagut un problema al crear el dispositiu.",
                 );
             }
-        } else {
-            try {
-                $llistaEspais = LlistaEspais::getEspais($post->espais, $post->pagina);
-                $response = array(
-                    "success" => true,
-                    "data" => $llistaEspais,
-                    "message" => "Resultat retornat satisfactòriament.",
-                );
-            } catch (\Throwable $th) {
-                $response = array(
-                    "success" => false,
-                    "data" => null,
-                    "message" => "Error al retornar els espais."
-                );
-            }
+        } catch (\Throwable $th) {
+            $response = array(
+                "success" => false,
+                "data" => null,
+                "message" => "Error al crear l'espai."
+            );
         }
     } else {
         $response = array(
