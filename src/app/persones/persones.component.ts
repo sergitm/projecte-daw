@@ -158,13 +158,13 @@ export class PersonesComponent implements OnInit{
 
   public ultimaPagina(){
     this.numPagina = this.maxPagines;
-    if (this.navPagines.length > 5) {
+    if (this.maxPagines > 5) {
       this.navPagines = [
-        this.maxPagines - 4,
-        this.maxPagines - 3,
-        this.maxPagines - 2,
-        this.maxPagines - 1,
-        this.maxPagines,
+        this.numPagina - 4,
+        this.numPagina - 3,
+        this.numPagina - 2,
+        this.numPagina - 1,
+        this.numPagina,
       ];
     }
     this.loadTaula();

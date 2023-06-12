@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Espai } from 'src/app/model/espai.model';
 import { Persona } from 'src/app/model/persona.model';
 import { environment } from 'src/environments/environment.development';
 
@@ -142,6 +143,63 @@ export class DataService {
       accio: 'createPersona',
       session_id: session.session_id,
       persona: persona
+    });
+  }
+
+  createEspai(espai: Espai){
+    const url = `${this.baseUrl}${this.apiUrl.crearEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'createEspai',
+      session_id: session.session_id,
+      espai: espai
+    });
+  }
+
+  readEspais(pagina: number, numPerPagina: number){
+    const url = `${this.baseUrl}${this.apiUrl.readEspais}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readEspais',
+      session_id: session.session_id,
+      espais: numPerPagina,
+      pagina: pagina
+    });
+  }
+
+  buscarEspais(data:string, pagina: number, numPerPagina: number){
+    const url = `${this.baseUrl}${this.apiUrl.buscarEspais}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'buscarEspais',
+      session_id: session.session_id,
+      espais: data,
+      pagina: pagina,
+      qtEspais: numPerPagina
+    });
+  }
+
+  numeroPaginesEspai(numPerPagina : number, criteri : string){
+    
+    const url = `${this.baseUrl}${this.apiUrl.numPaginesEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'numPagines',
+      session_id: session.session_id,
+      numPerPagina : numPerPagina,
+      criteri : criteri
     });
   }
 }

@@ -13,6 +13,10 @@ export const environment = {
         buscarPersones: "persones/search.php",
         numPagines: "persones/numPagines.php",
         crearPersona: "persones/createPersona.php",
-        classes: "persones/classes.php"
+        classes: "persones/classes.php",
+        crearEspai: "espais/createEspai.php",
+        readEspais: "espais/readEspais.php",
+        buscarEspais: "espais/search.php",
+        numPaginesEspai: "espais/numPagines.php",
     }
 };

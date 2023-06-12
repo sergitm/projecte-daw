@@ -1,0 +1,6 @@
+.page-item .page-link.active {
+    color: white !important;
+    background-color: rgba(0, 0, 0, 0.521) !important;
+    border-color: white;
+    box-shadow: grey;
+}
