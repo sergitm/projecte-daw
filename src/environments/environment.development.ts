@@ -4,10 +4,12 @@ export const environment = {
     apiUrl: {
         login: "login/login.php",
         logout: "login/logout.php",
+
         import: 'importacio/import.php',
         users: 'users/users.php',
         addUsers: "users/addUsers.php",
         deleteUsers: "users/deleteUsers.php",
+
         readPersones: "persones/readPersones.php",
         buscarPersones: "persones/search.php",
         numPagines: "persones/numPagines.php",
@@ -31,5 +33,26 @@ export const environment = {
         getDispositiu: "dispositius/single_dispositiu.php",
         updateDispositiu: "dispositius/update.php",
         deleteDispositiu: "dispositius/delete.php",
+
+        addEspaiPersona: "persones/addEspai.php",
+        addPersonaDispositiu: "persones/addDispositiu.php",
+        readEspaisPersona: "persones/readEspaisPersona.php",
+        readDispositiusPersona: "persones/readDispositiusPersona.php",
+        deleteEspaiPersona: "persones/deleteEspai.php",
+        deletePersonaDispositiu: "persones/deleteDispositiu.php",
+
+        addPersonaEspai: "espais/addPersona.php",
+        addDispositiuEspai: "espais/addDispositiu.php",
+        readPersonesEspai: "espais/readPersonesEspai.php",
+        readDispositiusEspai: "espais/readDispositiusEspai.php",
+        deletePersonaEspai: "espais/deletePersona.php",
+        deleteDispositiuEspai: "espais/deleteDispositiu.php",
+
+        addDispositiuPersona: "dispositius/addPersona.php",
+        addEspaiDispositiu: "dispositius/addEspai.php",
+        readEspaisDispositiu: "dispositius/readEspaisDispositiu.php",
+        readPersonesDispositiu: "dispositius/readPersonesDispositiu.php",
+        deleteDispositiuPersona: "dispositius/deletePersona.php",
+        deleteEspaiDispositiu: "dispositius/deleteEspai.php",
     }
 };

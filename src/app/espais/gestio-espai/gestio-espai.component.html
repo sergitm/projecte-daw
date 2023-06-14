@@ -21,6 +21,95 @@
             </div>
         </form>
 
+        <div class="m-5 rounded rounded-3 border shadow">
+            <div class="row">
+                <div class="col-md-6 border-end">
+                    <h2 class="text-center">Persones</h2>
+                </div>
+                <div class="col-md-6 border-start">
+                    <h2 class="text-center">Dispositius</h2>
+                </div>
+            </div>
+            <div class="row py-3">
+                <div class="col-md-6 d-flex justify-content-center border-end">
+                    <form (submit)="afegirPersona()">
+                        <div class="input-group">
+                            <input list="personaDatalist" name="persona" id="persona" class="form-control" [(ngModel)]="newPersona" placeholder="Nom d'usuari">
+                            <datalist id="personaDatalist">
+                                <option class="text-dark" *ngFor="let persona of persones" [value]="persona.usuari">
+                            </datalist>
+                            <input type="submit" class="btn btn-dark" value="Afegir">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center border-start">
+                    <form (submit)="afegirDispositiu()">
+                        <div class="input-group">
+                            <input list="dispositiuDatalist" name="dispositiu" id="dispositiu" class="form-control" [(ngModel)]="newDispositiu" placeholder="Nom d'un dispositiu">
+                            <datalist id="dispositiuDatalist">
+                                <option class="text-dark" *ngFor="let dispositiu of dispositius" [value]="dispositiu.nom">
+                            </datalist>
+                            <input type="submit" class="btn btn-dark" value="Afegir">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 border-end">
+                    <div class="container text-center" *ngIf="addPersonaError || addPersonaMessage">
+                        <span *ngIf="addPersonaError" class="text-danger fw-bold">{{addPersonaError}}</span>
+                        <span *ngIf="addPersonaMessage" class="text-success fw-bold">{{addPersonaMessage}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6 border-start">
+                    <div class="container text-center" *ngIf="addDispositiuError || addDispositiuMessage">
+                        <span *ngIf="addDispositiuError" class="text-danger fw-bold">{{addDispositiuError}}</span>
+                        <span *ngIf="addDispositiuMessage" class="text-success fw-bold">{{addDispositiuMessage}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-md-6 border-end">
+                    <div class="bg-dark rounded rounded-2 border border-3 border-info mx-3">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let persona of personesList; index as i;">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{persona.nom_cognoms}}</td>
+                                    <td><fa-icon class="fa-trash" [icon]="faTrash" (click)="esborrarPersona(persona.id)"></fa-icon></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6 border-start">
+                    <div class="bg-dark rounded rounded-2 border border-3 border-info mx-3">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Tipus</th>
+                                <th scope="col">Estat</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dispositiu of dispositiusList; index as i;">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{dispositiu.nom}}</td>
+                                    <td>{{dispositiu.tipus}}</td>
+                                    <td>{{dispositiu.estat}}</td>
+                                    <td><fa-icon class="fa-trash" [icon]="faTrash" (click)="esborrarDispositiu(dispositiu.id)"></fa-icon></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Secció eliminar -->
         <div class="text-center my-5">

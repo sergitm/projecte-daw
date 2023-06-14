@@ -174,6 +174,19 @@ export class DataService {
     });
   }
 
+  readAllEspais(){
+    const url = `${this.baseUrl}${this.apiUrl.readEspais}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readEspais',
+      session_id: session.session_id,
+      espais: 'all'
+    });    
+  }
+
   buscarEspais(data:string, pagina: number, numPerPagina: number){
     const url = `${this.baseUrl}${this.apiUrl.buscarEspais}`;
 
@@ -228,6 +241,32 @@ export class DataService {
       session_id: session.session_id,
       dispositius: numPerPagina,
       pagina: pagina
+    });
+  }
+
+  readAllDispositius(){
+    const url = `${this.baseUrl}${this.apiUrl.readDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readDispositius',
+      session_id: session.session_id,
+      dispositius: 'all'
+    });
+  }
+
+  readAllPersones(){
+    const url = `${this.baseUrl}${this.apiUrl.readPersones}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readPersones',
+      session_id: session.session_id,
+      persones: 'all'
     });
   }
 
@@ -402,6 +441,267 @@ export class DataService {
       accio: 'delete',
       session_id: session.session_id,
       dispositiu: dispositiu
+    });
+  }
+
+  // Funcions per gestionar les relacions de PERSONES
+
+  addEspaiPersona(persona_id: number, espai_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.addEspaiPersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'addEspai',
+      session_id: session.session_id,
+      persona: persona_id,
+      espai: espai_id
+    });
+  }
+
+  addDispositiuPersona(persona_id: number, dispositiu_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.addPersonaDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'addDispositiu',
+      session_id: session.session_id,
+      dispositiu: dispositiu_id,
+      persona: persona_id
+    });
+  }
+
+  readEspaiPersona(persona_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.readEspaisPersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readEspais',
+      session_id: session.session_id,
+      persona: persona_id
+    });
+  }
+
+  readDispositiuPersona(persona_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.readDispositiusPersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readDispositius',
+      session_id: session.session_id,
+      persona: persona_id
+    });
+  }
+
+  deleteEspaiPersona(persona_id: number, espai_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.deleteEspaiPersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'deleteEspai',
+      session_id: session.session_id,
+      persona: persona_id,
+      espai: espai_id
+    });
+  }
+
+  deleteDispositiuPersona(persona_id: number, dispositiu_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.deletePersonaDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'deleteDispositiu',
+      session_id: session.session_id,
+      dispositiu: dispositiu_id,
+      persona: persona_id
+    });
+  }
+
+  // FUNCIONS HTTP PER GESTIONAR LES RELACIONS DE ESPAIS
+
+  addPersonaEspai(persona_id: number, espai_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.addPersonaEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'addPersona',
+      session_id: session.session_id,
+      persona: persona_id,
+      espai: espai_id
+    });
+  }
+
+  addDispositiuEspai(espai_id: number, dispositiu_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.addDispositiuEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'addDispositiu',
+      session_id: session.session_id,
+      dispositiu: dispositiu_id,
+      espai: espai_id
+    });
+  }
+
+  readPersonesEspai(espai_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.readPersonesEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readPersones',
+      session_id: session.session_id,
+      espai: espai_id
+    });
+  }
+
+  readDispositiusEspai(espai_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.readDispositiusEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readDispositius',
+      session_id: session.session_id,
+      espai: espai_id
+    });
+  }
+
+  deletePersonaEspai(persona_id: number, espai_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.deletePersonaEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'deletePersona',
+      session_id: session.session_id,
+      persona: persona_id,
+      espai: espai_id
+    });
+  }
+
+  deleteDispositiuEspai(espai_id: number, dispositiu_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.deleteDispositiuEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'deleteDispositiu',
+      session_id: session.session_id,
+      dispositiu: dispositiu_id,
+      espai: espai_id
+    });
+  }
+
+  // FUNCIONS HTTP PER GESTIONAR LES RELACIONS DE DISPOSITIUS
+
+  addDispositiusPersona(persona_id: number, dispositiu_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.addDispositiuPersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'addPersona',
+      session_id: session.session_id,
+      persona: persona_id,
+      dispositiu: dispositiu_id
+    });
+  }
+
+  addEspaiDispositiu(espai_id: number, dispositiu_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.addEspaiDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'addEspai',
+      session_id: session.session_id,
+      dispositiu: dispositiu_id,
+      espai: espai_id
+    });
+  }
+
+  readEspaisDispositiu(dispositiu_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.readEspaisDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readEspais',
+      session_id: session.session_id,
+      dispositiu: dispositiu_id
+    });
+  }
+
+  readPersonesDispositiu(dispositiu_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.readPersonesDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'readPersones',
+      session_id: session.session_id,
+      dispositiu: dispositiu_id
+    });
+  }
+
+  deletePersonaDispositiu(persona_id: number, dispositiu_id: number){
+    const url = `${this.baseUrl}${this.apiUrl.deleteDispositiuPersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'deletePersona',
+      session_id: session.session_id,
+      persona: persona_id,
+      dispositiu: dispositiu_id
+    });
+  }
+
+  deleteEspaiDispositiu(espai: number, dispositiu_id: number){
+    
+    const url = `${this.baseUrl}${this.apiUrl.deleteEspaiDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'deleteEspai',
+      session_id: session.session_id,
+      dispositiu: dispositiu_id,
+      espai: espai
     });
   }
 }

@@ -179,6 +179,142 @@ class LlistaUsuaris {
             return $personaDel->delete();
         }
     }
+
+    public static function addEspaiPersona($id_espai, $id_persona){
+        $query = "INSERT INTO espai_persona (id, id_espai, id_persona) 
+                    VALUES (null, :id_espai, :id_persona);";
+
+        $params = array(
+            ':id_espai' => $id_espai,
+            ':id_persona' => $id_persona
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function addPersonaDispositiu($id_persona, $id_dispositiu){
+        
+        $query = "INSERT INTO persona_dispositiu (id, id_persona, id_dispositiu) 
+                    VALUES (null, :id_persona, :id_dispositiu);";
+
+        $params = array(
+            ':id_persona' => $id_persona,
+            ':id_dispositiu' => $id_dispositiu
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function getEspaisPersona($persona_id){
+        $llistaEspais = array();
+        $query = "SELECT * FROM espais e 
+                    INNER JOIN espai_persona ep ON e.id = ep.id_espai 
+                    INNER JOIN persones p ON p.id = ep.id_persona 
+                    WHERE p.id = :id_persona;";
+
+        $params = array(
+            ':id_persona' => $persona_id
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        $num = $stmt->rowCount();
+
+        if ($num > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                extract($row);
+
+                $espai = new Espai($row['nom'], $row['id_espai']);
+                array_push($llistaEspais, $espai);
+            }
+        }
+        return $llistaEspais;
+    }
+
+    public static function getDispositiusPersona($persona_id){
+        $llistaEspais = array();
+        $query = "SELECT * FROM dispositius d 
+                    INNER JOIN persona_dispositiu pd ON d.id = pd.id_dispositiu 
+                    INNER JOIN persones p ON p.id = pd.id_persona 
+                    WHERE p.id = :id_persona;";
+
+        $params = array(
+            ':id_persona' => $persona_id
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        $num = $stmt->rowCount();
+
+        if ($num > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                extract($row);
+
+                $espai = new Dispositiu($row['nom'], $row['tipus'], $row['estat'], $row['id_dispositiu']);
+                array_push($llistaEspais, $espai);
+            }
+        }
+        return $llistaEspais;
+    }
+
+    
+    public static function deleteEspaiPersona($persona_id, $espai_id){
+        
+        $query = "DELETE FROM espai_persona WHERE id_espai = :id_espai AND id_persona = :id_persona;";
+        $params = array(
+            ':id_espai' => $espai_id,
+            ':id_persona' => $persona_id
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+        
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function deleteDispositiuPersona($persona_id, $dispositiu_id){
+
+        $query = "DELETE FROM persona_dispositiu WHERE id_dispositiu = :id_dispositiu AND id_persona = :id_persona;";
+        $params = array(
+            ':id_dispositiu' => $dispositiu_id,
+            ':id_persona' => $persona_id
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+        
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

@@ -166,6 +166,142 @@ class LlistaDispositius {
             return $dispositiuDel->delete();
         }
     }
+
+    public static function addPersonaDispositiu($id_dispositiu, $id_persona){
+        $query = "INSERT INTO persona_dispositiu (id, id_persona, id_dispositiu) 
+                    VALUES (null, :id_persona, :id_dispositiu);";
+
+        $params = array(
+            ':id_persona' => $id_persona,
+            ':id_dispositiu' => $id_dispositiu,
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function addDispositiuEspai($id_espai, $id_dispositiu){
+        
+        $query = "INSERT INTO espai_dispositiu (id, id_espai, id_dispositiu) 
+                    VALUES (null, :id_espai, :id_dispositiu);";
+
+        $params = array(
+            ':id_espai' => $id_espai,
+            ':id_dispositiu' => $id_dispositiu
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function getPersonesDispositiu($id_dispositiu){
+        $llistaUsuaris = array();
+        $query = "SELECT * FROM persones p 
+                    INNER JOIN persona_dispositiu pd ON p.id = pd.id_persona 
+                    INNER JOIN dispositius d ON d.id = pd.id_dispositiu 
+                    WHERE d.id = :id_dispositiu;";
+
+        $params = array(
+            ':id_dispositiu' => $id_dispositiu
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        $num = $stmt->rowCount();
+
+        if ($num > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                extract($row);
+
+                $usuari = new Usuari($row['nom_cognoms'], $row['usuari'], $row['etapa'], $row['curs'], $row['grup'], $row['id_persona']);
+                array_push($llistaUsuaris, $usuari);
+            }
+        }
+        return $llistaUsuaris;
+    }
+
+    public static function getEspaisDispositiu($id_dispositiu){
+        $llistaEspais = array();
+        $query = "SELECT e.id, e.nom FROM espais e 
+                    INNER JOIN espai_dispositiu ed ON e.id = ed.id_espai 
+                    INNER JOIN dispositius d ON d.id = ed.id_dispositiu 
+                    WHERE d.id = :id_dispositiu;";
+
+        $params = array(
+            ':id_dispositiu' => $id_dispositiu
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        $num = $stmt->rowCount();
+
+        if ($num > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                extract($row);
+
+                $espai = new Espai($row['nom'], $row['id']);
+                array_push($llistaEspais, $espai);
+            }
+        }
+        return $llistaEspais;
+    }
+
+    
+    public static function deletePersonaDispositiu($persona_id, $id_dispositiu){
+        
+        $query = "DELETE FROM persona_dispositiu WHERE id_dispositiu = :id_dispositiu AND id_persona = :id_persona;";
+        $params = array(
+            ':id_dispositiu' => $id_dispositiu,
+            ':id_persona' => $persona_id
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+        
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function deleteDispositiuEspai($espai_id, $dispositiu_id){
+
+        $query = "DELETE FROM espai_dispositiu WHERE id_dispositiu = :id_dispositiu AND id_espai = :id_espai;";
+        $params = array(
+            ':id_dispositiu' => $dispositiu_id,
+            ':id_espai' => $espai_id
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+        
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

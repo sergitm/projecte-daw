@@ -6,6 +6,7 @@ import { DataService } from 'src/services/data-service.service';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-gestio-persona',
@@ -26,7 +27,18 @@ export class GestioPersonaComponent implements OnInit {
   protected errorMessage: any;
   protected successMessage: any;
   protected eliminarShow: boolean = false;
+  protected newEspai!: string;
+  protected newDispositiu!: string;
+  protected espais: any[] = [];
+  protected dispositius: any[] = [];
+  protected addEspaiMessage: any;
+  protected addEspaiError: any;
+  protected addDispositiuMessage: any;
+  protected addDispositiuError: any;
+  protected espaisList: any[] = [];
+  protected dispositiusList: any[] = [];
   faLock = faLock;
+  faTrash = faTrash;
 
   constructor(private dataService:DataService, private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router){
 
@@ -44,13 +56,31 @@ export class GestioPersonaComponent implements OnInit {
         this.etapa?.setValue(this.persona?.getEtapa);
         this.curs?.setValue(this.persona?.getCurs);
         this.grup?.setValue(this.persona?.getGrup);
+
+        
+        this.loadTaules();
       }
-    })
+    });
 
     this.dataService.getClasses().subscribe(response => {
       let resposta = response as ResponseMessage;
       if (resposta.success) {
         this.classes = resposta.data;
+      }
+    });
+
+    
+    this.dataService.readAllEspais().subscribe(response => {
+      let resposta = response as ResponseMessage;
+      if (resposta.success) {
+        this.espais = resposta.data;
+      }
+    });
+
+    this.dataService.readAllDispositius().subscribe(response => {
+      let resposta = response as ResponseMessage;
+      if (resposta.success) {
+        this.dispositius = resposta.data;
       }
     });
   }
@@ -178,6 +208,107 @@ export class GestioPersonaComponent implements OnInit {
       }, error : (err) => {
         this.errorMessage = (err.message);
         this.successMessage = '';
+      }});
+    }
+  }
+
+  public loadTaules(){
+    this.dataService.readEspaiPersona(this.persona!.getId).subscribe(response => {
+      let resposta = response as ResponseMessage;
+      if (resposta.success) {
+        this.espaisList = resposta.data;             
+      }
+    });
+
+    this.dataService.readDispositiuPersona(this.persona!.getId).subscribe(response => {
+      let resposta = response as ResponseMessage;
+      if (resposta.success) {
+        this.dispositiusList = resposta.data;
+      }
+    });
+  }
+
+  public afegirEspai(){
+    let espai = this.espais.filter(element => element.nom === this.newEspai);
+    
+    this.dataService.addEspaiPersona(this.persona!.getId, espai[0].id).subscribe({ next : response => {
+      let resposta = response as ResponseMessage;
+      if (resposta.success) {
+        this.addEspaiMessage = resposta.message;
+        this.addEspaiError = '';
+        this.loadTaules();
+      } else {
+        this.addEspaiError = resposta.message;
+        this.addEspaiMessage = '';
+      }
+      
+    }, error : (err) => {
+      this.addEspaiError = (err.message);
+      this.addEspaiMessage = '';
+    }});
+    
+  }
+
+  public afegirDispositiu(){
+    let dispositiu = this.dispositius.filter(element => element.nom === this.newDispositiu);
+    
+    this.dataService.addDispositiuPersona(this.persona!.getId, dispositiu[0].id).subscribe({ next : response => {
+      let resposta = response as ResponseMessage;
+      if (resposta.success) {
+        this.addDispositiuMessage = resposta.message;
+        this.addDispositiuError = '';
+        this.loadTaules();
+      } else {
+        this.addDispositiuError = resposta.message;
+        this.addDispositiuMessage = '';
+      }
+      
+    }, error : (err) => {
+      this.addDispositiuError = (err.message);
+      this.addDispositiuMessage = '';
+    }});
+  }
+
+  public esborrarEspai(espai_id: number){
+    let del = prompt("Estàs segur de que vols eliminar aquest espai? Si n'estàs segur, escriu en majúscules: ESBORRAR");
+
+    if(del === "ESBORRAR"){
+      
+      this.dataService.deleteEspaiPersona(this.persona!.getId, espai_id).subscribe({ next : response => {
+        let resposta = response as ResponseMessage;
+        if (resposta.success) {
+          alert(resposta.message);
+          window.location.reload();
+        } else {
+          this.addEspaiError = resposta.message;
+          this.addEspaiMessage = '';
+        }
+        
+      }, error : (err) => {
+        this.addEspaiError = (err.message);
+        this.addEspaiMessage = '';
+      }});
+    }
+  }
+
+  public esborrarDispositiu(dispositiu_id: number){
+    let del = prompt("Estàs segur de que vols eliminar aquest dispositiu? Si n'estàs segur, escriu en majúscules: ESBORRAR");
+
+    if(del === "ESBORRAR"){
+      
+      this.dataService.deleteDispositiuPersona(this.persona!.getId, dispositiu_id).subscribe({ next : response => {
+        let resposta = response as ResponseMessage;
+        if (resposta.success) {
+          alert(resposta.message);
+          window.location.reload();
+        } else {
+          this.addDispositiuError = resposta.message;
+          this.addDispositiuMessage = '';
+        }
+        
+      }, error : (err) => {
+        this.addDispositiuError = (err.message);
+        this.addDispositiuMessage = '';
       }});
     }
   }
