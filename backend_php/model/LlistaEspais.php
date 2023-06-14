@@ -126,6 +126,43 @@ class LlistaEspais {
         $espai = new Espai($espai->nom);
         return $espai->save();
     }
+
+    public static function getSingle($id){
+        $query = "SELECT * FROM espais WHERE id = :id;";
+        $params = array(
+            ":id" => $id,
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            extract($row);
+            $espai = new Espai($row['nom'], $row['id']);
+            return $espai;
+        } else {
+            return false;
+        }
+    }
+
+    public static function updateEspai($espai){
+        $espaiOG = self::getSingle($espai->id);
+
+        $nom = $espai->nom ?? $espaiOG->getNom();
+
+        $newespai = new Espai($nom, $espai->id);
+
+        return $newespai->update();
+    }
+
+    public static function deleteEspai($espai){
+        $espaiDel = new Espai($espai->nom, $espai->id);
+        if (Espai::existsId($espaiDel->getId())) {
+            return $espaiDel->delete();
+        }
+    }
 }
 
 ?>

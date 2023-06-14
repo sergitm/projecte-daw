@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let persona of llistaPersones; index as i;">
+                    <tr *ngFor="let persona of llistaPersones; index as i;" class="fila-persona" (click)="gestioPersona(persona.id)">
                         <th scope="row" *ngIf="numPagina > 1; else primeraColumnaAlternativa">{{((numPagina - 1) * numPerPagina) + i + 1}}</th>
                         <ng-template #primeraColumnaAlternativa><th scope="row">{{i+1}}</th></ng-template>
                         <td>{{persona.nom_cognoms}}</td>

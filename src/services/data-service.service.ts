@@ -284,4 +284,124 @@ export class DataService {
       session_id: session.session_id
     });
   }
+
+  getPersona(id : string){
+    
+    const url = `${this.baseUrl}${this.apiUrl.getPersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'getPersona',
+      session_id: session.session_id,
+      persona_id: id
+    });
+  }
+
+  updatePersona(persona: Persona | undefined){
+    const url = `${this.baseUrl}${this.apiUrl.updatePersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'update',
+      session_id: session.session_id,
+      persona: persona
+    });
+  }
+
+  deletePersona(persona: Persona | undefined){
+    const url = `${this.baseUrl}${this.apiUrl.deletePersona}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'delete',
+      session_id: session.session_id,
+      persona: persona
+    });
+  }
+
+  getEspai(id : string){
+    
+    const url = `${this.baseUrl}${this.apiUrl.getEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'getEspai',
+      session_id: session.session_id,
+      espai_id: id
+    });
+  }
+
+  updateEspai(espai: Espai | undefined){
+    const url = `${this.baseUrl}${this.apiUrl.updateEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'update',
+      session_id: session.session_id,
+      espai: espai
+    });
+  }
+
+  deleteEspai(espai: Espai | undefined){
+    const url = `${this.baseUrl}${this.apiUrl.deleteEspai}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'delete',
+      session_id: session.session_id,
+      espai: espai
+    });
+  }
+
+  getDispositiu(id : string){
+    
+    const url = `${this.baseUrl}${this.apiUrl.getDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'getDispositiu',
+      session_id: session.session_id,
+      dispositiu_id: id
+    });
+  }
+
+  updateDispositiu(dispositiu: Dispositiu | undefined){
+    const url = `${this.baseUrl}${this.apiUrl.updateDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'update',
+      session_id: session.session_id,
+      dispositiu: dispositiu
+    });
+  }
+
+  deleteDispositiu(dispositiu: Dispositiu | undefined){
+    const url = `${this.baseUrl}${this.apiUrl.deleteDispositiu}`;
+
+    const sessionCache = localStorage.getItem('session');
+    const session = (sessionCache != null) ? JSON.parse(sessionCache) : null;
+
+    return this.http.post(url, {
+      accio: 'delete',
+      session_id: session.session_id,
+      dispositiu: dispositiu
+    });
+  }
 }

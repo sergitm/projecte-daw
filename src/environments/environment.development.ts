@@ -22,5 +22,14 @@ export const environment = {
         buscarDispositius: "dispositius/search.php",
         numPaginesDispositiu: "dispositius/numPagines.php",
         infoSelects: "dispositius/infoSelects.php",
+        getPersona: "persones/single_persona.php",
+        updatePersona: "persones/update.php",
+        deletePersona: "persones/delete.php",
+        getEspai: "espais/single_espai.php",
+        updateEspai: "espais/update.php",
+        deleteEspai: "espais/delete.php",
+        getDispositiu: "dispositius/single_dispositiu.php",
+        updateDispositiu: "dispositius/update.php",
+        deleteDispositiu: "dispositius/delete.php",
     }
 };

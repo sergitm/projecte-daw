@@ -4,6 +4,7 @@ import { ResponseMessage } from '../interfaces/response-message';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-persones',
@@ -26,7 +27,7 @@ export class PersonesComponent implements OnInit{
   protected maxPagines!: number;
   protected navPagines: any[] = [];
 
-  constructor(private dataService: DataService){
+  constructor(private dataService: DataService, private router: Router){
   
   }
 
@@ -168,6 +169,10 @@ export class PersonesComponent implements OnInit{
       ];
     }
     this.loadTaula();
+  }
+
+  public gestioPersona(id : number){
+    this.router.navigate(['/persones', id]);
   }
 
 }

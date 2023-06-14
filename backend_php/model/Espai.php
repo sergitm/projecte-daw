@@ -78,11 +78,48 @@ class Espai implements JsonSerializable {
                 return FALSE;
             }
     }
+    
+    public function delete(){
+        $query = "DELETE FROM espais WHERE id = :id;";
+        $params = array(
+            ':id' => $this->getId()
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+        
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static function exists($nom){
         $query = "SELECT * FROM espais WHERE nom = :nom";
         $params = array(
             ':nom' => $nom
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        $result = $stmt->fetchAll();
+        Connection::close();
+        
+        $num = count($result);
+
+        if ($num > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function existsId($id){
+        $query = "SELECT * FROM espais WHERE id = :id";
+        $params = array(
+            ':id' => $id
         );
 
         Connection::connect();

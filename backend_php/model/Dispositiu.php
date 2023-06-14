@@ -99,6 +99,23 @@ class Dispositiu implements JsonSerializable {
             }
     }
 
+    public function delete(){
+        $query = "DELETE FROM dispositius WHERE id = :id;";
+        $params = array(
+            ':id' => $this->getId()
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+        
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function exists($id){
         $query = "SELECT * FROM dispositius WHERE id = :id";
         $params = array(

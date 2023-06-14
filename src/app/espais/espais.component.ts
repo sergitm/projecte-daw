@@ -4,6 +4,8 @@ import { DataService } from 'src/services/data-service.service';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { Espai } from '../model/espai.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-espais',
@@ -25,7 +27,7 @@ export class EspaisComponent implements OnInit{
     protected maxPagines!: number;
     protected navPagines: any[] = [];
   
-    constructor(private dataService: DataService){
+    constructor(private dataService: DataService, private router: Router){
     
     }
   
@@ -170,6 +172,10 @@ export class EspaisComponent implements OnInit{
         ];
       }
       this.loadTaula();
+    }
+
+    public gestioEspai(id: number){
+      this.router.navigate(['/espais', id]);
     }
   
 }

@@ -127,6 +127,45 @@ class LlistaDispositius {
 
         return $dispositiu->save();
     }
+
+    public static function getSingle($id){
+        $query = "SELECT * FROM dispositius WHERE id = :id;";
+        $params = array(
+            ":id" => $id,
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            extract($row);
+            $dispositiu = new Dispositiu($row['nom'], $row['tipus'], $row['estat'], $row['id']);
+            return $dispositiu;
+        } else {
+            return false;
+        }
+    }
+
+    public static function updateDispositiu($dispositiu){
+        $dispositiuOG = self::getSingle($dispositiu->id);
+
+        $nom = $dispositiu->nom ?? $dispositiuOG->getNom();
+        $tipus = $dispositiu->tipus ?? $dispositiuOG->getTipus();
+        $estat = $dispositiu->estat ?? $dispositiuOG->getEstat();
+
+        $newDispositiu = new Dispositiu($nom, $tipus, $estat, $dispositiu->id);
+
+        return $newDispositiu->update();
+    }
+
+    public static function deleteDispositiu($dispositiu){
+        $dispositiuDel = new Dispositiu($dispositiu->nom, $dispositiu->tipus,$dispositiu->estat, $dispositiu->id);
+        if (Dispositiu::exists($dispositiuDel->getId())) {
+            return $dispositiuDel->delete();
+        }
+    }
 }
 
 ?>

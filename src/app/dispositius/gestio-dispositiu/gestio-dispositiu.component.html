@@ -1,0 +1,59 @@
+<div class="container my-5">
+    <div class="bg-light rounded rounded-2 shadow pb-4">
+        <h1 class="text-center" *ngIf="dispositiu">{{dispositiu.getNom}}</h1>
+        <div class="container m-3">
+            <button class="btn btn-dark" (click)="enableForm()"><fa-icon [icon]="faLock"></fa-icon> | Editar dades del dispositiu</button>
+        </div>
+        <form name="formulario-update" [formGroup]="form" (submit)="editarDispositiu()">
+            <div class="mx-4 row">
+                <label for="nom" class="fw-bold col-3">Nom:</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" [readonly]="disabledForm" [class.form-control-plaintext]="disabledForm" [class.is-invalid]="nom?.value == '' && nom?.touched && !disabledForm" id="nom" name="nom" formControlName="nom" [value]="dispositiu?.getNom">
+                    <span class="text-danger" *ngIf="nom?.value == '' && nom?.touched && !disabledForm">El camp és obligatori.</span>
+                </div>
+            </div>
+            <div class="my-3 mx-4 row">
+                <label for="tipus" class="fw-bold col-3">Tipus:</label>
+                <div class="col-9">
+                    <select class="form-select" [class.is-invalid]="tipus?.hasError('required') && tipus?.touched" aria-label="Selecció tipus" id="tipus" name="tipus" formControlName="tipus">
+                        <option value="">Selecciona un tipus</option>
+                        <option *ngFor="let tipus of arrTipus" [value]="tipus">{{tipus}}</option>
+                    </select>
+                    <span class="text-danger" *ngIf="tipus?.hasError('required') && tipus?.touched">El camp és obligatori.</span>
+                </div>
+            </div>
+            <div class="my-3 mx-4 row">
+                <label for="estat" class="fw-bold col-3">Estat:</label>
+                <div class="col-9">
+                    <select class="form-select" [class.is-invalid]="estat?.hasError('required') && estat?.touched" aria-label="Selecció estat" id="estat" name="estat" formControlName="estat">
+                        <option value="">Selecciona un estat</option>
+                        <option *ngFor="let estat of arrEstat" [value]="estat">{{estat}}</option>
+                    </select>
+                    <span class="text-danger" *ngIf="estat?.hasError('required') && estat?.touched">El camp és obligatori.</span>
+                </div>
+            </div>
+
+            <div class="mt-4 pb-5 mx-4" *ngIf="!disabledForm">
+                <input type="submit" class="btn btn-dark float-end" value="Modificar">
+            </div>
+            <div class="container text-center" *ngIf="errorMessage || successMessage">
+                <span *ngIf="errorMessage" class="text-danger fw-bold">{{errorMessage}}</span>
+                <span *ngIf="successMessage" class="text-success fw-bold">{{successMessage}}</span>
+            </div>
+        </form>
+
+
+        <!-- Secció eliminar -->
+        <div class="text-center my-5">
+            <button class="btn btn-warning fw-bold" (click)="showEliminar()">Eliminar</button>
+        </div>
+
+        <div class="m-4 mt-5 border border-2 border-danger shadow rounded rounded-3 bg-warning" *ngIf="eliminarShow">
+            <h2 class="text-danger text-center">Eliminar</h2>
+            <p class="text-center fw-bold">Clica al botó si vols eliminar aquest dispositiu (acció irreversible) i n'estàs completament segur.</p>
+            <div class="text-center my-3">
+                <button class="btn btn-danger" (click)="eliminarDispositiu()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

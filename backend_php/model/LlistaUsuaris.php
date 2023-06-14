@@ -138,6 +138,47 @@ class LlistaUsuaris {
 
         return $persona->save();
     }
+
+    public static function getSingle($id){
+        $query = "SELECT * FROM persones WHERE id = :id;";
+        $params = array(
+            ":id" => $id,
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            extract($row);
+            $usuari = new Usuari($row['nom_cognoms'], $row['usuari'], $row['etapa'], $row['curs'], $row['grup'], $row['id']);
+            return $usuari;
+        } else {
+            return false;
+        }
+    }
+
+    public static function updatePersona($persona){
+        $personaOG = self::getSingle($persona->id);
+
+        $nom_cognoms = $persona->nom_cognoms ?? $personaOG->getNomCognoms();
+        $usuari = $persona->usuari ?? $personaOG->getUsuari();
+        $etapa = $persona->etapa ?? $personaOG->getEtapa();
+        $curs = $persona->curs ?? $personaOG->getCurs();
+        $grup = $persona->grup ?? $personaOG->getGrup();
+
+        $newPersona = new Usuari($nom_cognoms, $usuari, $etapa, $curs, $grup, $persona->id);
+
+        return $newPersona->update();
+    }
+
+    public static function deletePersona($persona){
+        $personaDel = new Usuari($persona->nom_cognoms, $persona->usuari,$persona->etapa, $persona->curs, $persona->grup, $persona->id);
+        if (Usuari::exists($personaDel->getUsuari())) {
+            return $personaDel->delete();
+        }
+    }
 }
 
 ?>

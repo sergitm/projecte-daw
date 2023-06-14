@@ -4,3 +4,7 @@
     border-color: white;
     box-shadow: grey;
 }
+
+.fila-dispositiu {
+    cursor: pointer;
+}

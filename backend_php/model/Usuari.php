@@ -122,10 +122,27 @@ class Usuari implements JsonSerializable {
             Connection::close();
             
             if ($stmt) {
-                return TRUE;
+                return true;
             } else {
-                return FALSE;
+                return false;
             }
+    }
+
+    public function delete(){
+        $query = "DELETE FROM persones WHERE id = :id;";
+        $params = array(
+            ':id' => $this->getId()
+        );
+
+        Connection::connect();
+        $stmt = Connection::execute($query, $params);
+        Connection::close();
+        
+        if ($stmt) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static function exists($usuari){
@@ -147,6 +164,7 @@ class Usuari implements JsonSerializable {
             return false;
         }
     }
+    
 }
 
 ?>

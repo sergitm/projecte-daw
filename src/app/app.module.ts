@@ -21,6 +21,9 @@ import { EspaisComponent } from './espais/espais.component';
 import { NovaPersonaComponent } from './persones/nova-persona/nova-persona.component';
 import { NouEspaiComponent } from './espais/nou-espai/nou-espai.component';
 import { NouDispositiuComponent } from './dispositius/nou-dispositiu/nou-dispositiu.component';
+import { GestioPersonaComponent } from './persones/gestio-persona/gestio-persona.component';
+import { GestioEspaiComponent } from './espais/gestio-espai/gestio-espai.component';
+import { GestioDispositiuComponent } from './dispositius/gestio-dispositiu/gestio-dispositiu.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { NouDispositiuComponent } from './dispositius/nou-dispositiu/nou-disposi
     EspaisComponent,
     NovaPersonaComponent,
     NouEspaiComponent,
-    NouDispositiuComponent
+    NouDispositiuComponent,
+    GestioPersonaComponent,
+    GestioEspaiComponent,
+    GestioDispositiuComponent
   ],
   imports: [
     BrowserModule,
