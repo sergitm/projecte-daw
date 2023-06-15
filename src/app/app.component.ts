@@ -28,6 +28,7 @@ export class AppComponent implements OnInit{
   }
 
   logout(){
+    localStorage.clear();
     this.login.logout(this.user.session_id).subscribe(response => {
       let resposta = response as ResponseMessage;
       if (resposta.success) {

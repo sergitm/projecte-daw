@@ -1,5 +1,7 @@
 <?php
 
+phpversion();
+
 // imports
 require_once "../../config/database.php";
 require_once "../../model/Session.php";

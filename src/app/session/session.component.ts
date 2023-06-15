@@ -17,7 +17,8 @@ export class SessionComponent implements OnInit {
     // Recollim la session_id generada pel backend de la URL
     this.route.queryParams.subscribe(params => {
       this.parametro = params['session_id'];
-
+      console.log(this.parametro);
+      
       // Preguntem al servidor si la session_id existeix (si está logat)
       this.loginService.isLogged(this.parametro).subscribe(response => {
         let resposta = response as {

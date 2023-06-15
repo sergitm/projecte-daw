@@ -9,11 +9,14 @@ require_once '../../model/Session.php';
 session_start();
 session_regenerate_id(true);
 
+
+$configJson = json_decode(file_get_contents("../../config/auth.json"), true);
+
 $config= [    
     'callback' => \Hybridauth\HttpClient\Util::getCurrentUrl(),
     'keys' => [
-        'id' => '468515275307-3b0t2kj3jp10ca35ooh9imn0htlk64je.apps.googleusercontent.com',
-        'secret' => "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",
+        'id' => $configJson['web']['client_id'],
+        'secret' => $configJson['web']['client_secret'],
     ],
     'scope' => 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
 ];
@@ -77,7 +80,7 @@ try{
 
     // i redirigirem a la pagina principal
     if ($logat) {
-        header("Location: http://localhost:4200/session?session_id=" . urlencode($session->getSessionId()));
+        header("Location: http://localhost:4200/#/session?session_id=" . urlencode($session->getSessionId()));
     }
 
 }catch(Exception $e){

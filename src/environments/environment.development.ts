@@ -4,6 +4,7 @@ export const environment = {
     apiUrl: {
         login: "login/login.php",
         logout: "login/logout.php",
+        oauth: "login/oauth.php",
 
         import: 'importacio/import.php',
         users: 'users/users.php',
